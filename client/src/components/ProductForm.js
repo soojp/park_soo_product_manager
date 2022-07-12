@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const InputContent = (props) => {
+  const { products, setProducts } = props;
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
@@ -13,7 +15,24 @@ const InputContent = (props) => {
       price,
       description,
     };
+
     console.log(`Created ${newProduct}`);
+    axios
+      .post("http://localhost:8000/api/product", {
+        title,
+        price,
+        description,
+      })
+      .then((res) => {
+        console.log(res.data);
+        setProducts([...products, res.data]);
+        setTitle("");
+        setPrice("");
+        setDescription("");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
