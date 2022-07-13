@@ -9,14 +9,7 @@ const InputContent = (props) => {
 
   const createProduct = (e) => {
     e.preventDefault();
-
-    const newProduct = {
-      title,
-      price,
-      description,
-    };
-
-    console.log(`Created ${newProduct}`);
+    console.log("hello bishessss");
     axios
       .post("http://localhost:8000/api/product", {
         title,
@@ -63,10 +56,10 @@ const InputContent = (props) => {
             onChange={(e) => setDescription(e.target.value)}
           ></input>
         </div>
-      </form>
       <div>
         <button type="submit">Create</button>
       </div>
+      </form>
     </div>
   );
 };
