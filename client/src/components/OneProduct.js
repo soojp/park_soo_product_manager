@@ -8,6 +8,15 @@ const OneProduct = (props) => {
 
   useEffect(() => {
     axios
+      .get("http://localhost:8000/api/product")
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    axios
       .get("http://localhost:8000/api/product/" + id)
       .then((res) => {
         console.log(res.data);

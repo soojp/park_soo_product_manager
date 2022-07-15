@@ -8,6 +8,7 @@ const Main = (props) => {
   const removeFromDom = (productId) => {
     setProducts(products.filter((product) => product._id !== productId));
   };
+
   return (
     <div>
       <ProductForm products={products} setProducts={setProducts} />

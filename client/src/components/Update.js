@@ -7,12 +7,29 @@ const Update = (props) => {
   const [title, setTitle] = useState();
   const [price, setPrice] = useState();
   const [description, setDescription] = useState();
+  const [product, setProduct] = useState({});
+  const [products, setProducts] = useState([]);
   const navigate = useNavigate();
+
+  const removeFromDom = (productId) => {
+    setProducts(products.filter((product) => product._id !== productId));
+  };
+
+  const deleteProduct = (productId) => {
+    axios
+      .delete(`http://localhost:8000/api/product/${productId}`)
+      .then((res) => {
+        removeFromDom(productId);
+        navigate('/');
+      })
+      .catch((err) => console.log(err));
+  };
 
   useEffect(() => {
     axios
       .get(`http://localhost:8000/api/product/${id}`)
       .then((res) => {
+        setProduct(res.data);
         setTitle(res.data.title);
         setPrice(res.data.price);
         setDescription(res.data.description);
@@ -20,13 +37,23 @@ const Update = (props) => {
       .catch((err) => console.log(err));
   }, []);
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/product")
+      .then((res) => {
+        console.log(res.data);
+        setProducts(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   const updateProduct = (e) => {
     e.preventDefault();
     axios
-      .put(`http://localhost:8000/api/product/${id}` , {
+      .put(`http://localhost:8000/api/product/${id}`, {
         title,
         price,
-        description
+        description,
       })
       .then((res) => {
         console.log(res);
@@ -46,6 +73,7 @@ const Update = (props) => {
             type="text"
             name="title"
             value={title}
+            placeholder={title}
             onChange={(e) => {
               setTitle(e.target.value);
             }}
@@ -58,6 +86,7 @@ const Update = (props) => {
             type="text"
             name="price"
             value={price}
+            placeholder={price}
             onChange={(e) => {
               setPrice(e.target.value);
             }}
@@ -70,6 +99,7 @@ const Update = (props) => {
             type="text"
             name="description"
             value={description}
+            placeholder={description}
             onChange={(e) => {
               setDescription(e.target.value);
             }}
@@ -77,6 +107,7 @@ const Update = (props) => {
         </div>
         <button type="submit">Submit</button>
       </form>
+      <button onClick={(e) => deleteProduct(product._id)}>Delete</button>
     </div>
   );
 };
