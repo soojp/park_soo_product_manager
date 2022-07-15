@@ -8,12 +8,10 @@ module.exports = {
       })
       .catch((err) => {
         console.log("ERROR IN Getting Products", err);
-        res
-          .status(400)
-          .json({
-            message: "something went wrong in finding all products",
-            error: err,
-          });
+        res.status(400).json({
+          message: "something went wrong in finding all products",
+          error: err,
+        });
       });
   },
   getProductById: (req, res) => {
@@ -23,12 +21,10 @@ module.exports = {
       })
       .catch((err) => {
         console.log("ERROR IN Getting Product", err);
-        res
-          .status(400)
-          .json({
-            message: "something went wrong in finding the product",
-            error: err,
-          });
+        res.status(400).json({
+          message: "something went wrong in finding the product",
+          error: err,
+        });
       });
   },
   createProduct: (req, res) => {
@@ -38,15 +34,16 @@ module.exports = {
       })
       .catch((err) => {
         console.log("ERROR IN Creating Product", err);
-        res
-          .status(400)
-          .json({
-            message: "something went wrong in creating product",
-            error: err,
-          });
+        res.status(400).json({
+          message: "something went wrong in creating product",
+          error: err,
+        });
       });
   },
   updateProduct: (req, res) => {
+    console.log(
+      `@@@@@@@REQUEST UPDATE PRODUCT@@@ -- ${JSON.stringify(req.params)}`
+    );
     Product.findOneAndUpdate({ _id: req.params.id }, req.body, {
       new: true,
       runValidators: true,
@@ -56,12 +53,10 @@ module.exports = {
       })
       .catch((err) => {
         console.log("ERROR IN Updating Product", err);
-        res
-          .status(400)
-          .json({
-            message: "something went wrong in updating product",
-            error: err,
-          });
+        res.status(400).json({
+          message: "something went wrong in updating product",
+          error: err,
+        });
       });
   },
   deleteProduct: (req, res) => {
@@ -71,12 +66,10 @@ module.exports = {
       })
       .catch((err) => {
         console.log("ERROR IN Deleting Product", err);
-        res
-          .status(400)
-          .json({
-            message: "something went wrong in deleting product",
-            error: err,
-          });
+        res.status(400).json({
+          message: "something went wrong in deleting product",
+          error: err,
+        });
       });
   },
 };
